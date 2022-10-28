@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package calculator;
+
+option go_package = "github.com/marcoslhc/grpc-go-course/calculator/proto";
+
+message SumRequest {
+  int64 first = 1;
+  int64 second = 2;
+}
+
+message SumResponse { int64 sum = 1; }
+
+message PrimeRequest { int64 number = 1; }
+
+message PrimeResponse { repeated int64 result = 1; }
+
+service Calculator {
+  rpc Sum(SumRequest) returns (SumResponse);
+  rpc Primes(PrimeRequest) returns (stream PrimeResponse);
+}
