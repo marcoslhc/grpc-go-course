@@ -18,6 +18,7 @@ var (
 type Server struct {
 	pb.CalculatorServer
 }
+
 func main() {
 	flag.Parse()
 	serverAddress := fmt.Sprintf("%s:%d", *addr, *port)
@@ -38,7 +39,7 @@ func main() {
 
 	pb.RegisterCalculatorServer(s, &Server{})
 
-	if err:= s.Serve(lis); err != nil {
+	if err := s.Serve(lis); err != nil {
 		log.Fatalf("Can't serve at %s: %v", serverAddress, err)
 	}
 

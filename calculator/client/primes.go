@@ -7,6 +7,7 @@ import (
 
 	pb "github.com/marcoslhc/grpc-go-course/calculator/proto"
 )
+
 func doPrimes(c pb.CalculatorClient, n int64) {
 	res, err := c.Primes(context.Background(), &pb.PrimeRequest{
 		Number: n,

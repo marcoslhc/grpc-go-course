@@ -9,7 +9,7 @@ import (
 
 func doSum(c pb.CalculatorClient, a, b int64) {
 	res, err := c.Sum(context.Background(), &pb.SumRequest{
-		First: a,
+		First:  a,
 		Second: b,
 	})
 

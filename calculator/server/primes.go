@@ -3,6 +3,7 @@ package main
 import (
 	pb "github.com/marcoslhc/grpc-go-course/calculator/proto"
 )
+
 func (s *Server) Primes(req *pb.PrimeRequest, stream pb.Calculator_PrimesServer) error {
 	var num = req.GetNumber()
 	var k int64 = 2
@@ -12,7 +13,7 @@ func (s *Server) Primes(req *pb.PrimeRequest, stream pb.Calculator_PrimesServer)
 			break
 		}
 
-		if num % k == 0 {
+		if num%k == 0 {
 			res = append(res, k)
 			stream.Send(&pb.PrimeResponse{
 				Result: res,
