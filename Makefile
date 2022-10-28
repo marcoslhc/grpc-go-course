@@ -11,11 +11,12 @@ CLIENT_BIN    = ${CLIENT_DIR}
 CHECK_DIR_CMD = test -d $@ || (echo "\033[31mDirectory $@ doesn't exist\033[0m" && false)
 
 .DEFAULT_GOAL := help
-.PHONY: greet 
-project := greet
+.PHONY: greet calculator
+project := greet calculator
 
 all: $(project) ## Generate Pbs and build
 greet: $@ ## Generate Pbs and build for greet
+calculator: $@ ## Generate Pbs and build for greet
 
 $(project):
 	@${CHECK_DIR_CMD}
