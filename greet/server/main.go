@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"flag"
 	"fmt"
 	"log"
@@ -11,16 +10,12 @@ import (
 	"google.golang.org/grpc"
 )
 
+var (
+	_ pb.GreetServiceServer = &Server{}
+)
+
 type Server struct {
 	pb.GreetServiceServer
-}
-
-func (s *Server) Greet(ctx context.Context, req *pb.GreetRequest) (*pb.GreetResponse, error) {
-	log.Printf("Greet Called with %v", req)
-	name := req.GetName()
-	res := pb.GreetResponse{}
-	res.Message = "Hello " + name + "!"
-	return &res, nil
 }
 
 var (

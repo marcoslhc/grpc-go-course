@@ -20,17 +20,27 @@ calculator: $@ ## Generate Pbs and build for greet
 
 $(project):
 	@${CHECK_DIR_CMD}
+	@printf "Generating Code for %-12s\033[1;37m%-12s\033[0m\n" $(@) $(@)/${PROTO_DIR}/*.proto
 	@${PROTO_BIN} -I$@/${PROTO_DIR} \
 	--go_opt=module=${MODULE} \
 	--go_out=${OUT_DIR} \
 	--go-grpc_opt=module=${MODULE} \
 	--go-grpc_out=. \
 	$@/${PROTO_DIR}/*.proto
-	go build -o ${BIN_DIR}/$@/${SERVER_BIN} ./$@/${SERVER_DIR}
-	go build -o ${BIN_DIR}/$@/${CLIENT_BIN} ./$@/${CLIENT_DIR}
+	@printf "Building %-12s\033[1;33m%-12s\033[0m\n" $(@) server
+	@go build -o ${BIN_DIR}/$@/${SERVER_BIN} ./$@/${SERVER_DIR}
+	@printf "Building %-12s\033[1;33m%-12s\033[0m\n" $(@) client
+	@go build -o ${BIN_DIR}/$@/${CLIENT_BIN} ./$@/${CLIENT_DIR}
+	@printf "Project \033[32m%-12s\033[0m\033[1;32m%-12s\033[0m\n\n" $(@) Done
 
 test: all ## Launch tests
-	go test ./...
+	@go test ./...
+
+test_coverage:
+	@go test ./... -coverprofile=coverage.out
+
+lint:
+	@golangci-lint run
 
 clean: clean_greet ## Clean generated files
 	@rm -f ssl/*.crt
@@ -45,7 +55,7 @@ clean_greet: ## clean the greet project
 rebuild: clean all ## Rebuild the whole project
 
 bump: all ## Update packages version
-	go get -u ./...
+	@go get -u ./...
 
 about: ## Display info related to the build
 	@echo "OS: ${OS}"

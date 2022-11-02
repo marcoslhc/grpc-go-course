@@ -9,9 +9,13 @@ import (
 func (s *Server) GreetManyTimes(req *pb.GreetRequest, stream pb.GreetService_GreetManyTimesServer) error {
 	for i := 0; i < 10; i++ {
 		res := fmt.Sprintf("Hello %s!, number: %d", req.Name, i)
-		stream.Send(&pb.GreetResponse{
+		message := &pb.GreetResponse{
 			Message: res,
-		})
+		}
+		err := stream.Send(message)
+		if err != nil {
+			return err
+		}
 	}
 	return nil
 }

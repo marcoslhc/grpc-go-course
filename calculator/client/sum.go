@@ -7,8 +7,8 @@ import (
 	pb "github.com/marcoslhc/grpc-go-course/calculator/proto"
 )
 
-func doSum(c pb.CalculatorClient, a, b int64) {
-	res, err := c.Sum(context.Background(), &pb.SumRequest{
+func (e executor) doSum(a, b int64) {
+	res, err := e.client.Sum(context.Background(), &pb.SumRequest{
 		First:  a,
 		Second: b,
 	})

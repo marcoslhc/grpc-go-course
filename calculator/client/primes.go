@@ -8,8 +8,8 @@ import (
 	pb "github.com/marcoslhc/grpc-go-course/calculator/proto"
 )
 
-func doPrimes(c pb.CalculatorClient, n int64) {
-	res, err := c.Primes(context.Background(), &pb.PrimeRequest{
+func (e *executor) doPrimes(n int64) {
+	res, err := e.client.Primes(context.Background(), &pb.PrimeRequest{
 		Number: n,
 	})
 
